@@ -1,5 +1,6 @@
-
-
+d3.json("/data/samples.json").then((importedData) => {
+    console.log("imported data", importedData);
+})
 
 // function unpack(rows, index) {
 //     return rows.map(function(row) {
@@ -9,52 +10,76 @@
 
 
 function createMetadata() {
-    d3.json("/samples.json").then((samples) => {
-        console.log(samples)
 
-        var metatdata = samples.metatdata
+    var metadata = Object.values(importedData.metadata);
+    console.log("metadata", metadata);
 
-        var metadataDropdown = d3.select("#sample-metadata")
+    var metadataDropdown = d3.select("#sample-metadata");
 
-        metadataDropdown.html("");
+    metadataDropdown.html("");
 
-        Object.defineProperties(metatdata).forEach(([key, value]) => {
-            metadataDropdown.append("div")
-            .style("break-word")
-            .text("${key}: ${value}");
-        });
+    Object.entries(metadata).forEach(([key, value]) => {
+        metadataDropdown.append("div")
+        .text(`${key}: ${value}`);
     });
 }
 
+function createChart() {
 
+    filteredData = Object.values(importedData.samples);
+    console.log("filteredData", filteredData);
 
-    data.sort(function(a, b) {
-        return b.
-    })
+    // importedData.sort(function(a, b) {
+    //     return (b.samples.otu_ids) - (a.samples.otu_ids);
+    // });
+    // importedData = importedData.slice(0,10);
 
-    // var data = samples;
-    // //  Create the Traces
-    // var trace1 = {
-    //     labels: [otu_ids]
-    //     x: data.map(row => row.sample_values)
-    //     y: data.map(row => row.otu_ids)
-    //     name: "Top 10 OTUs"
-    //     type: "bar"
-    //     orientation: "h"
-    // };
+    // importedData = importedData.reverse();
 
+    //  Create the Traces
+    var trace1 = {
+        text: filteredData.map(row => row.otu_labels),
+        x: filteredData.map(row => row.sample_values),
+        y: filteredData.map(row => row.otu_ids),
+        type: "bar",
+        orientation: "h"
+    };
 
     // var trace2 = 
 
+    var chartData = [trace1];
 
-    // var data = [trace1, trace2];
+    var layout = {
+        title: "Top 10 OTUs",
+        xaxis: {title: ""},
+        yaxis: {title: ""}
+    };
 
+    Plotly.newPlot("chart", chartData, layout);
+}
 
+function createBubbleChart(){
+    d3.json("/data/samples.json").then((importedData) => {
+        console.log("imported data", importedData);
 
-    // var layout = {
-    //     title: ""
-    //     xaxis: {title: ""},
-    //     yaxis: {title: ""}
-    // };
+        var trace1 = {
+            type: "Scatter",
+            x: importedData.otu_ids,
+            y: importedData.sample_values,
+            mode: 'markers',
+            marker: {
+                color: importedData.samples.otu_ids,
+                size: importedData.samples.sample_values
+            },
+            hovertext: importedData.samples.otu_labels
+        };
+    
+        var data = [trace1];
 
-    // Plotly.newPlot()
+        var layout = {
+            title: "Bubble Chart"
+        };
+
+        Plotly.newPlot("bubble", data, layout);
+    });
+}
