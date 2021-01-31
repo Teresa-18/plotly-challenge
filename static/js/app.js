@@ -1,18 +1,36 @@
 
 
 
-function unpack(rows, index) {
-    return rows.map(function(row) {
-        return row[index];
+// function unpack(rows, index) {
+//     return rows.map(function(row) {
+//         return row[index];
+//     });
+// }
+
+
+function createMetadata() {
+    d3.json("/samples.json").then((samples) => {
+        console.log(samples)
+
+        var metatdata = samples.metatdata
+
+        var metadataDropdown = d3.select("#sample-metadata")
+
+        metadataDropdown.html("");
+
+        Object.defineProperties(metatdata).forEach(([key, value]) => {
+            metadataDropdown.append("div")
+            .style("break-word")
+            .text("${key}: ${value}");
+        });
     });
 }
 
 
 
-d3.json("..samples.json").then(samples) => {
-    console.log(data)
-
-    
+    data.sort(function(a, b) {
+        return b.
+    })
 
     // var data = samples;
     // //  Create the Traces
