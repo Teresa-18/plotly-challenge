@@ -46,7 +46,7 @@ d3.json("/data/samples.json").then((importedData) => {
         
         x: xValue,
         y: yValue,
-        text: sampleData2.map(row => row.otu_labels),
+        text: sampleData2[0].otu_labels,
         type: "bar",
         orientation: "h"
     };
