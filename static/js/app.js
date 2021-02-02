@@ -1,3 +1,5 @@
+
+function initialize() {
 //**initial start up populate Test Subject ID No */
 d3.json("/data/samples.json").then((importedData) => {
     console.log(importedData);
@@ -26,28 +28,26 @@ d3.json("/data/samples.json").then((importedData) => {
         .text(`${key}: ${value}`);
     });
     //**start H-Bar chart */
-        // function unpack(rows, index) {
-        //     return rows.map(function(row) {
-        //         return row[index];
-        //     });
-        // }
 
     var sampleData = importedData.samples;
         sampleData2 = sampleData.filter(r => r.id == optionValue);
         console.log(sampleData2)
 
-    // sampleData2.sort(function(a, b) {
-    //     return (b.sample_values) - (a.sample_values);
-    // });
+        
+    var xValue = sampleData2[0].sample_values.slice(0, 10).reverse();
 
-    // sampleData2 = sampleData2.slice(0,10);
 
-    // filteredSample = filteredSample.reverse();
+        console.log(xValue)
+
+    var yValue = sampleData2[0].otu_ids.slice(0, 10).reverse();
+        yValue = yValue.map(d => "OTU " + d)
+        console.log(yValue)
+
 
     var trace1 = {
         
-        x: sampleData2.map(row => row.sample_values),
-        y: sampleData2.map(row => row.otu_ids),
+        x: xValue,
+        y: yValue,
         text: sampleData2.map(row => row.otu_labels),
         type: "bar",
         orientation: "h"
@@ -66,8 +66,8 @@ d3.json("/data/samples.json").then((importedData) => {
     //**start Bubble Chart */
     var trace2 = {
         type: "Scatter",
-        x: sampleData2.otu_ids,
-        y: sampleData2.sample_values,
+        x: sampleData2[0].otu_ids,
+        y: sampleData2[0].sample_values,
         mode: 'markers',
         marker: {
             color: sampleData2.otu_ids,
@@ -84,3 +84,8 @@ d3.json("/data/samples.json").then((importedData) => {
 
     Plotly.newPlot("bubble", data2, layout);
 })
+}
+function optionChanged() {
+    initialize()
+}
+initialize()
