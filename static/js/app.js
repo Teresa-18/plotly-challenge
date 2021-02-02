@@ -35,8 +35,6 @@ d3.json("/data/samples.json").then((importedData) => {
 
         
     var xValue = sampleData2[0].sample_values.slice(0, 10).reverse();
-
-
         console.log(xValue)
 
     var yValue = sampleData2[0].otu_ids.slice(0, 10).reverse();
@@ -70,10 +68,10 @@ d3.json("/data/samples.json").then((importedData) => {
         y: sampleData2[0].sample_values,
         mode: 'markers',
         marker: {
-            color: sampleData2.otu_ids,
-            size: sampleData2.sample_values
+            color: sampleData2[0].otu_ids,
+            size: sampleData2[0].sample_values
         },
-        hovertext: sampleData2.otu_labels
+        hovertext: sampleData2[0].otu_labels
     };
 
     var data2 = [trace2];
