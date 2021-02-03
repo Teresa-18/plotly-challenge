@@ -81,6 +81,45 @@ d3.json("/data/samples.json").then((importedData) => {
     };
 
     Plotly.newPlot("bubble", data2, layout);
+
+    //** BONUS*/
+
+    var data = [
+        {
+            value: (metadata2[0].wfreq),
+            type: "indicator",
+            mode: "gauge+number",
+            title: { text: ("Belly Button Washing -br- Washes per Week"), font: { size: 26 } },
+            gauge: {
+                axis: { range: [null, 9] },
+                bar: { color: "darkblue" },
+                // bgcolor: "white",
+                borderwidth: 2,
+                bordercolor: "gray",
+                steps: [
+                    { range: [0, 1], color: "LightCyan" },
+                    { range: [1, 2], color: "LightSkyBlue" },
+                    { range: [2, 3], color: "DeepSkyBlue" },
+                    { range: [3, 4], color: "Lavender" },
+                    { range: [4, 5], color: "MediumPurple" },
+                    { range: [5, 6], color: "RebeccaPurple" },
+                    { range: [6, 7], color: "PaleGreen" },
+                    { range: [7, 8], color: "MediumSeaGreen" },
+                    { range: [8, 9], color: "Green" }
+                ],
+            }
+        }
+    ];
+    
+    var layout = {
+        width: 400,
+        height: 300,
+        margin: { t: 25, r: 20, l: 20, b: 25 },
+        paper_bgcolor: "Axure",
+        font: { color: "MidnightBlue", family: "Arial" }
+    };
+    
+    Plotly.newPlot("gauge", data, layout);
 })
 }
 function optionChanged() {
