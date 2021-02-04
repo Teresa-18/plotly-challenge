@@ -1,7 +1,7 @@
 
 function initialize() {
 //**initial start up populate Test Subject ID No */
-d3.json("/samples.json").then((importedData) => {
+d3.json("samples.json").then((importedData) => {
     console.log(importedData);
     var selectId = d3.select("#selDataset")
     var testIds = importedData.names
