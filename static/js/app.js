@@ -89,7 +89,7 @@ d3.json("/data/samples.json").then((importedData) => {
             value: (metadata2[0].wfreq),
             type: "indicator",
             mode: "gauge+number",
-            title: { text: ("Belly Button Washing -br- Washes per Week"), font: { size: 26 } },
+            title: { text: ("Belly Button Washes per Week"), font: { size: 26 } },
             gauge: {
                 axis: { range: [null, 9] },
                 bar: { color: "darkblue" },
